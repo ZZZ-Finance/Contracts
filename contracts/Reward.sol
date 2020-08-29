@@ -625,6 +625,7 @@ contract LPTokenWrapper {
         bpt.safeTransfer(msg.sender, amount);
     } 
     function setBPT(address BPTAddress) internal {
+		require(bpt == IERC20(address(0)), "bpt has been initialized");
         bpt = IERC20(BPTAddress);
     }
 }
@@ -657,6 +658,7 @@ contract YearnRewards is LPTokenWrapper, IRewardDistributionRecipient {
     }
     function setYFI(address YFIAddress,address BPTAddress) external onlyRewardDistribution {
         setBPT(BPTAddress);
+        require(yfi == IERC20(address(0)), "yfi has been initialized");
         yfi = IERC20(YFIAddress);
     }
     function lastTimeRewardApplicable() public view returns (uint256) {
